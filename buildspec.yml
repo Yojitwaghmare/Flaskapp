@@ -1,21 +1,10 @@
 version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      python: 3.11
-    commands:
-      - python3 -m venv venv
-      - source venv/bin/activate
-      - pip install -r requirement.txt
-
   build:
     commands:
       - mkdir -p output
-      - cp -r venv output/
-      - cp -r app.py connect.py python.py templates static requirement.txt output/
-      - cp appspec.yml output/
-      - cp -r scripts output/
+      - cp -r app.py connect.py python.py templates static requirement.txt scripts output/
       - chmod +x output/scripts/*.sh
 
 artifacts:
