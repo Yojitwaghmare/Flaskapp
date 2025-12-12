@@ -32,7 +32,7 @@ def erase():
     return render_template('answer.html', Convertofnum=input, num=no,records=showtable)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
 
 
 # from connect import addition
