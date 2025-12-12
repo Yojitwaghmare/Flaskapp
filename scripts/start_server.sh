@@ -7,7 +7,6 @@ export DB_NAME="dectobinary"
 
 cd /var/www/flaskapp
 
-# Create virtual environment if not exists
 if [ ! -d "venv" ]; then
     python3 -m venv venv
 fi
