@@ -13,7 +13,7 @@ phases:
     commands:
       - mkdir -p output
       - cp -r venv output/
-      - cp -r app.py connect.py python.py templates static requirements.txt output/
+      - cp -r app.py connect.py python.py templates static requirement.txt output/
       - cp appspec.yml output/
       - cp -r scripts output/
       - chmod +x output/scripts/*.sh
