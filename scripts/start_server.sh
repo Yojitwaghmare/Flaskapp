@@ -1,5 +1,5 @@
 
-cd /home/ec2-user/flaskapp
+cd /var/www/flask
 
 if [ ! -d "venv" ]; then
     python3 -m venv venv
