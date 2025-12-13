@@ -1,5 +1,5 @@
 
-cd /var/www/flaskapp
+cd /home/ec2-user/flaskapp
 
 if [ ! -d "venv" ]; then
     python3 -m venv venv
