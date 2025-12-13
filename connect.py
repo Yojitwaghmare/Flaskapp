@@ -1,18 +1,28 @@
+import json
+import boto3
 import mysql.connector
 import os
-DB_HOST = os.environ.get("DB_HOST")
-DB_USER = os.environ.get("DB_USER")
-DB_PASSWORD = os.environ.get("DB_PASSWORD")
-DB_NAME = os.environ.get("DB_NAME")
 
-# Create a global DB connection
+def get_db_credentials():
+    secret_name = "flaskapp/db/credentials"
+    region_name = "ap-south-1"
+
+    client = boto3.client("secretsmanager", region_name=region_name)
+    response = client.get_secret_value(SecretId=secret_name)
+    secret = json.loads(response["SecretString"])
+    return secret
+
+secret = get_db_credentials()
+
 mydb = mysql.connector.connect(
-    host=DB_HOST,
-    user=DB_USER,
-    password=DB_PASSWORD,
-    database=DB_NAME
+    host=os.environ.get("DB_HOST"),
+    user=secret["username"],
+    password=secret["password"],
+    database=secret["dbname"]
 )
+
 mycursor = mydb.cursor()
+
 
 def addition(name,price):
   sql="INSERT INTO conversion (input,output) values (%s, %s)"
