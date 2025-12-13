@@ -6,7 +6,10 @@ from botocore.exceptions import ClientError
 def get_db_credentials():
     secret_name = "flaskapp/db/credentials"
 
-    client = boto3.client("secretsmanager")
+    client = boto3.client(
+        "secretsmanager",
+        region_name="ap-south-1" 
+    )
 
     try:
         response = client.get_secret_value(SecretId=secret_name)
