@@ -1,27 +1,31 @@
 import json
 import boto3
 import mysql.connector
-import os
+from botocore.exceptions import ClientError
 
 def get_db_credentials():
     secret_name = "flaskapp/db/credentials"
-    region_name = "ap-south-1"
 
-    client = boto3.client("secretsmanager", region_name=region_name)
-    response = client.get_secret_value(SecretId=secret_name)
-    secret = json.loads(response["SecretString"])
-    return secret
+    client = boto3.client("secretsmanager")
+
+    try:
+        response = client.get_secret_value(SecretId=secret_name)
+    except ClientError as e:
+        raise RuntimeError("Unable to fetch DB secret") from e
+
+    return json.loads(response["SecretString"])
 
 secret = get_db_credentials()
 
 mydb = mysql.connector.connect(
-    host=os.environ.get("DB_HOST"),
+    host="flaskapp-mydb-jgnwcizrvrqa.cruqqgmqsn5d.ap-south-1.rds.amazonaws.com",      
     user=secret["username"],
     password=secret["password"],
     database=secret["dbname"]
 )
 
 mycursor = mydb.cursor()
+
 
 
 def addition(name,price):
