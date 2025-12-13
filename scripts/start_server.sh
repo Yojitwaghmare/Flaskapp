@@ -1,6 +1,3 @@
-#!/bin/bash
-
-export DB_HOST="flaskapp-mydb-uzt9cdqml1vy.cruqqgmqsn5d.ap-south-1.rds.amazonaws.com"
 
 cd /var/www/flaskapp
 
